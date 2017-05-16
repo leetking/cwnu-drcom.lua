@@ -19,10 +19,8 @@ dependencies = {
 }
 build = {
    type = "builtin",
-   modules = {
-       config = "config.lua",
-   },
    install = {
+       conf = {cofig = "config.lua"},
        bin  = {drcom = "drcom.lua" },
    },
 }
