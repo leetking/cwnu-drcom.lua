@@ -1,0 +1,7 @@
+#!/bin/bash
+
+LUA=lua
+# 优先使用lua5.1
+[ which lua5.1 > /dev/null 2>&1 ] || LUA=lua5.1
+
+$LUA drcom.lua
