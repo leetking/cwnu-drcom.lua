@@ -9,8 +9,8 @@ description = {
        通过网页认证登录网络，仅供西华师范大学使用(http://cwnu.edu.cn)。
    ]],
    homepage = "http://github.com/leetking/cwnu-drcom.lua",
-   maintainer = "leetking <li_Tking@163.com>"
-   license = "GNU GPL v3"
+   maintainer = "leetking <li_Tking@163.com>",
+   license = "GNU GPL v3",
 }
 dependencies = {
    "lua >= 5.1",
@@ -20,7 +20,6 @@ dependencies = {
 build = {
    type = "builtin",
    install = {
-       conf = {"./cfg.lua"},
-       bin  = {drcom  = "./drcom.lua" },
+       bin  = {drcom  = "src/drcom.lua" },
    },
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env lua
 
 local http = require("socket.http")
-local config = require("cfg")
+local config = require("config")
 local syscfg = config.sys
 local user = config.user
 
