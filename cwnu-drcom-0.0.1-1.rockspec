@@ -20,7 +20,7 @@ dependencies = {
 build = {
    type = "builtin",
    install = {
-       conf = {cofig = "config.lua"},
-       bin  = {drcom = "drcom.lua" },
+       conf = {config = "cwnu-drcom.lua/config.lua"},
+       bin  = {drcom  = "cwnu-drcom.lua/drcom.lua" },
    },
 }
