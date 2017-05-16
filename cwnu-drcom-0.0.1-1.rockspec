@@ -19,7 +19,13 @@ dependencies = {
 }
 build = {
    type = "builtin",
+   modules = {
+       drcom = "src/drcom.lua",
+       config = "src/config.lua",
+   },
+   --[[
    install = {
        bin  = {drcom  = "src/drcom.lua" },
    },
+   --]]
 }
