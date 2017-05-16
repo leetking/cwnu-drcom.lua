@@ -1,5 +1,5 @@
 package = "cwnu-drcom"
-version = "0.0.1-1"
+version = "1.0-1"
 source = {
    url = "git://github.com/leetking/cwnu-drcom.lua",
 }
@@ -20,12 +20,13 @@ dependencies = {
 build = {
    type = "builtin",
    modules = {
-       drcom = "src/drcom.lua",
-       config = "src/config.lua",
+       ["cwnu-drcom.core"] = "src/core.lua",
+       -- TODO 如何让config模块不导出
+       ["cwnu-drcom.config"] = "src/config.lua",
    },
-   --[[
    install = {
-       bin  = {drcom  = "src/drcom.lua" },
+       bin = {
+           drcom  = "drcom.lua",
+       },
    },
-   --]]
 }

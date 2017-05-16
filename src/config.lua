@@ -11,8 +11,7 @@ local sys = {
     calg = "12345678",
 }
 
-local M = {
+return {
     user = user,
     sys = sys,
 }
-return M
