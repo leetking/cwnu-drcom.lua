@@ -2,6 +2,7 @@ package = "cwnu-drcom"
 version = "1.0-1"
 source = {
    url = "git://github.com/leetking/cwnu-drcom.lua",
+   dir = "cwnu-drcom.lua",
 }
 description = {
    summary = "登录西华师范大学校园网",
