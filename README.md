@@ -23,6 +23,9 @@
   $ drcom
   ```
 
+## 路由器版本下载
+ [Drcom4CWNU-web.ipk](https://github.com/leetking/cwnu-drcom.lua/releases/latest)
+ 
 ## 依赖
 - lua >= 5.1
 - luasocket
