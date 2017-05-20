@@ -16,7 +16,7 @@
   ```shell
   $ luarocks show cwnu-drcom
   ```
-  查看到`config.lua`所在位置，修改他!
+  查看到`config.lua`所在位置，修改他
 
 3. 运行
   ```shell
