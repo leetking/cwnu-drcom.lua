@@ -39,7 +39,7 @@ local resbody = {}
 -- 开始请求
 local function login()
     print(("User(%s) Logining..."):format(user.usr))
-    local res, code, reshd = http.request{
+    local res, code, reshd = http.request({
         url = syscfg.url,
         method = "POST",
         headers = {
@@ -48,7 +48,7 @@ local function login()
         },
         source = ltn12.source.string(strbody),
         sink = ltn12.sink.table(resbody),
-    }
+    })
 
     -- TODO 处理反馈信息
     if 200 == code and 1 == res then
