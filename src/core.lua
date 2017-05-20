@@ -25,7 +25,7 @@ local table2string = function(tb)
 end
 
 local body = {
-    ["DDDDD"]  = user.usr,
+    ["DDDDD"]  = (user.net == 0) and user.usr or user.usr.."@tel",
     ["upass"]  = encryt_pwd(user.pwd),
     ["R1"]     = 0,
     ["R2"]     = 1,
