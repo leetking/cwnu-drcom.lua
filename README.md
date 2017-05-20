@@ -11,7 +11,13 @@
   ```shell
   $ luarocks install cwnu-drcom
   ```
+
 2. 修改安装目录下的`config.lua`，填写正确的用户名和密码
+  ```shell
+  $ luarocks show cwnu-drcom
+  ```
+  查看到`config.lua`所在位置，修改他!
+
 3. 运行
   ```shell
   $ drcom
