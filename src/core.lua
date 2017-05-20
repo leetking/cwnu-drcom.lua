@@ -25,7 +25,7 @@ local table2string = function(tb)
 end
 
 local body = {
-    ["DDDDD"]  = (user.net == 0) and user.usr or user.usr.."@tel",
+    ["DDDDD"]  = (user.net == "SNET") and user.usr or user.usr.."@tel",
     ["upass"]  = encryt_pwd(user.pwd),
     ["R1"]     = 0,
     ["R2"]     = 1,
@@ -38,7 +38,7 @@ local resbody = {}
 
 -- 开始请求
 local function login()
-    print(("User(%s) Logining..."):format(user.usr))
+    print(("User(%s) Logining..."):format(body["DDDDD"]))
     local res, code, reshd = http.request({
         url = syscfg.url,
         method = "POST",

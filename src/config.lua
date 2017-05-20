@@ -2,7 +2,7 @@
 local user = {
     usr = "201413640731",   -- 在这里输入用户名
     pwd = "yourpasswd",     -- 在这里输入密码
-    net = 1,                -- 网络类型,0: 校园网，1: 互联网
+    net = "SNET",           -- 网络类型,SNET: 校园网(school net)，INET: 互联网(internet),默认为SNET
 }
 
 -- 软件设置
