@@ -40,7 +40,7 @@ local resbody = {}
 local function login()
     print(("User(%s) Logining..."):format(body["DDDDD"]))
     local res, code, reshd = http.request({
-        url = syscfg.url,
+        url = "http://"..syscfg.ser..syscfg.path,
         method = "POST",
         headers = {
             ["Content-Type"] = "application/x-www-form-urlencoded";
