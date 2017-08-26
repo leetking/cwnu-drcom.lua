@@ -1,5 +1,6 @@
 local http = require("socket.http")
 local config = require("cwnu-drcom.config")
+local ltn12  = require("ltn12")
 local syscfg = config.sys
 local user = config.user
 
