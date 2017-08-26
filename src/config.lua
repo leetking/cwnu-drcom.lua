@@ -8,9 +8,7 @@ local user = {
 -- 软件设置
 local sys = {
     ser  = "10.255.0.204",
-    path = "/0.htm",
-    pid  = "2",
-    calg = "12345678",
+    path = "/a70.htm",
 }
 
 return {

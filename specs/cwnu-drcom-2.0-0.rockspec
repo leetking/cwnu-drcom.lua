@@ -1,15 +1,15 @@
 package = "cwnu-drcom"
-version = "1.0-2"
+version = "2.0-0"
 source = {
    url = "git://github.com/leetking/cwnu-drcom.lua",
    dir = "cwnu-drcom.lua",
-   tag = "v1.0-2",
+   tag = "v2.0",
 }
 description = {
    summary = "登录西华师范大学校园网",
    detailed = [[
        通过网页认证登录网络，仅供西华师范大学使用(http://cwnu.edu.cn)。
-       v1.0-2 老版本也能继续使用。
+       v2.0 新版本登录
    ]],
    homepage = "http://github.com/leetking/cwnu-drcom.lua",
    maintainer = "leetking <li_Tking@163.com>",

@@ -11,13 +11,13 @@ local encryt_pwd = function(pwd)
     local calg = syscfg.calg
     return md5.sumhexa(pid..pwd..calg)..calg..pid
 end
--- 把table转换为url数据string
-local table2string = function(tb)
+-- 把table转换为key=value形式的string，并由sep隔开
+local table2string = function(tb, sep)
     local ret = ""
     local isfirst = true
     for k, v in pairs(tb) do
         if not isfirst then
-            ret = ret.."&"
+            ret = ret..sep
         end
         isfirst = false
         ret = ret..tostring(k).."="..tostring(v)
@@ -25,17 +25,45 @@ local table2string = function(tb)
     return ret
 end
 
+-- 获取本机 IP
+local get_localip = function()
+    local socket = require("socket")
+    local skt = socket.udp()
+    skt:setpeername("8.8.8.8", 53)  -- 随便填写
+    local ip, _ = skt:getsockname()
+    return ip
+end
+
 local body = {
     ["DDDDD"]  = (user.net == "SNET") and user.usr or user.usr.."@tel",
-    ["upass"]  = encryt_pwd(user.pwd),
+    ["upass"]  = user.pwd,
     ["R1"]     = 0,
-    ["R2"]     = 1,
+    ["R2"]     = "",
+    ["R6"]     = 0,
     ["para"]   = "00",
     ["0MKKey"] = "123456",
-    ["v6ip"]   = "",
+    ["buttonClicked"] = "",
+    ["redirect_url"]  = "",
+    ["err_flag"]      = "",
+    ["username"]      = "",
+    ["password"]      = "",
+    ["user"]          = "",
+    ["cmd"]           = "",
+    ["Login"]         = "",
 }
-local strbody = table2string(body)
-local resbody = {}
+local cookies = {
+    ["program"]     = "XHSFDX",
+    ["vlan"]        = 0,
+    ["ip"]          = get_localip(),
+    ["md5_login2"]  = body["DDDDD"].."%7C"..body["upass"],   -- %7C == |
+}
+local strbody    = table2string(body, "&")
+local strcookies = table2string(cookies, "; ")
+local resbody    = {}
+
+print("strbody :", strbody)
+print("strcookies :", strcookies)
+print("localip: ", get_localip())
 
 -- 开始请求
 local function login()
@@ -44,8 +72,10 @@ local function login()
         url = "http://"..syscfg.ser..syscfg.path,
         method = "POST",
         headers = {
-            ["Content-Type"] = "application/x-www-form-urlencoded";
-            ["Content-Length"] = #strbody
+            ["Content-Type"] = "application/x-www-form-urlencoded",
+            ["Content-Length"] = #strbody,
+            ["Cookie"]     = strcookies,
+            ["Referer"]    = "http://"..syscfg.ser..syscfg.path,
         },
         source = ltn12.source.string(strbody),
         sink = ltn12.sink.table(resbody),
