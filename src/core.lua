@@ -31,6 +31,7 @@ local get_localip = function()
     local skt = socket.udp()
     skt:setpeername("8.8.8.8", 53)  -- 随便填写
     local ip, _ = skt:getsockname()
+    skt:close()
     return ip
 end
 
