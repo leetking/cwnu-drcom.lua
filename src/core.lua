@@ -42,7 +42,7 @@ local get_serverip = function()
         method = "GET",
     })
     if res == 1 and code == 302 and reshd["Location"] then
-        return reshd["Location"]:match("%d+\.%d+\.%d+\.%d+")
+        return reshd["Location"]:match("%d+%.%d+%.%d+%.%d+")
     end
     return syscfg.ser
 end
