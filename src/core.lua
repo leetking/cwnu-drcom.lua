@@ -35,6 +35,18 @@ local get_localip = function()
     return ip
 end
 
+-- 侦测认证服务器地址
+local get_serverip = function()
+    local res, code, reshd = http.request({
+        url = "http://baidu.com",
+        method = "GET",
+    })
+    if res == 1 and code == 302 and reshd["Location"] then
+        return reshd["Location"]:match("%d+\.%d+\.%d+\.%d+")
+    end
+    return syscfg.ser
+end
+
 local body = {
     ["DDDDD"]  = (user.net == "SNET") and user.usr or user.usr.."@tel",
     ["upass"]  = user.pwd,
@@ -65,18 +77,20 @@ local resbody    = {}
 print("strbody :", strbody)
 print("strcookies :", strcookies)
 print("localip: ", get_localip())
+print("serverip: ", get_serverip())
 
 -- 开始请求
 local function login()
+    local serip = get_serverip()
     print(("User(%s) Logining..."):format(body["DDDDD"]))
     local res, code, reshd = http.request({
-        url = "http://"..syscfg.ser..syscfg.path,
+        url = "http://"..serip..syscfg.path,
         method = "POST",
         headers = {
             ["Content-Type"] = "application/x-www-form-urlencoded",
             ["Content-Length"] = #strbody,
             ["Cookie"]     = strcookies,
-            ["Referer"]    = "http://"..syscfg.ser..syscfg.path,
+            ["Referer"]    = "http://"..serip..syscfg.path,
         },
         source = ltn12.source.string(strbody),
         sink = ltn12.sink.table(resbody),
@@ -103,4 +117,3 @@ return {
     logoff  = logoff,
 }
 
--- $ curl -X POST --data "DDDDD=201413640731&upass=e63b77b435ec97b7c1bfeeb860128c9d123456782&R1=0&R2=1&para=00&0MKKey=123456&v6ip=" http://10.255.0.204/0.htm
