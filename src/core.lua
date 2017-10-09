@@ -40,9 +40,18 @@ local get_serverip = function()
     local res, code, reshd = http.request({
         url = "http://baidu.com",
         method = "GET",
+        --[[
+        headers = {
+            ["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64) "..
+                             "AppleWebKit/537.36 (KHTML, like Gecko) "..
+                             "Ubuntu Chromium/61.0.3163.100 "..
+                             "Chrome/61.0.3163.100 Safari/537.36",
+        },
+        --]]
     })
-    if res == 1 and code == 302 and reshd["Location"] then
-        return reshd["Location"]:match("%d+%.%d+%.%d+%.%d+")
+    if res == 1 and code == 200 and reshd["location"] then
+        print("server: ", reshd["location"]:match("%d+%.%d+%.%d+%.%d+"))
+        return reshd["location"]:match("%d+%.%d+%.%d+%.%d+")
     end
     return syscfg.ser
 end
