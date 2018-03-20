@@ -61,7 +61,8 @@ local body = {
     ["upass"]  = user.pwd,
     ["R1"]     = 0,
     ["R2"]     = "",
-    ["R6"]     = 0,
+    -- 0: personal computer; 1: mobile phone
+    ["R6"]     = (user.ispc == "true") and "0" or "1",
     ["para"]   = "00",
     ["0MKKey"] = "123456",
     ["buttonClicked"] = "",

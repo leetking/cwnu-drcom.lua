@@ -3,6 +3,7 @@ local user = {
     usr = "201413640731",   -- 在这里输入用户名
     pwd = "yourpasswd",     -- 在这里输入密码
     net = "SNET",           -- 网络类型,SNET: 校园网(school net)，INET: 互联网(internet),默认为SNET
+    ispc = "true",          -- login as a PC if @ispc is true, else login as a mobile phone
 }
 
 -- 软件设置
