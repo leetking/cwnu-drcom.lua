@@ -1,8 +1,19 @@
 local http = require("socket.http")
-local config = require("cwnu-drcom.config")
 local ltn12  = require("ltn12")
+local config = require("cwnu-drcom.config")
 local syscfg = config.sys
-local user = config.user
+
+local DEBUG = false
+local function D(...)
+    if (DEBUG) then
+        if "function" == type(...) then
+            fn = ...
+            fn()
+            return
+        end
+        print(...)
+    end
+end
 
 -- 加密密码
 local encryt_pwd = function(pwd)
@@ -23,6 +34,10 @@ local table2string = function(tb, sep)
         ret = ret..tostring(k).."="..tostring(v)
     end
     return ret
+end
+
+local function set_debug(d)
+    DEBUG = d
 end
 
 -- 获取本机 IP
@@ -50,48 +65,51 @@ local get_serverip = function()
         --]]
     })
     if res == 1 and code == 200 and reshd["location"] then
-        print("server: ", reshd["location"]:match("%d+%.%d+%.%d+%.%d+"))
+        D("server: ", reshd["location"]:match("%d+%.%d+%.%d+%.%d+"))
         return reshd["location"]:match("%d+%.%d+%.%d+%.%d+")
     end
     return syscfg.ser
 end
 
-local body = {
-    ["DDDDD"]  = (user.net == "SNET") and user.usr or user.usr.."@tel",
-    ["upass"]  = user.pwd,
-    ["R1"]     = 0,
-    ["R2"]     = "",
-    -- 0: personal computer; 1: mobile phone
-    ["R6"]     = (user.ispc == "true") and "0" or "1",
-    ["para"]   = "00",
-    ["0MKKey"] = "123456",
-    ["buttonClicked"] = "",
-    ["redirect_url"]  = "",
-    ["err_flag"]      = "",
-    ["username"]      = "",
-    ["password"]      = "",
-    ["user"]          = "",
-    ["cmd"]           = "",
-    ["Login"]         = "",
-}
-local cookies = {
-    ["program"]     = "XHSFDX",
-    ["vlan"]        = 0,
-    ["ip"]          = get_localip(),
-    ["md5_login2"]  = body["DDDDD"].."%7C"..body["upass"],   -- %7C == |
-}
-local strbody    = table2string(body, "&")
-local strcookies = table2string(cookies, "; ")
-local resbody    = {}
-
-print("strbody :", strbody)
-print("strcookies :", strcookies)
-print("localip: ", get_localip())
-print("serverip: ", get_serverip())
-
 -- 开始请求
-local function login()
+local function login(usr)
+    local user = config.user
+    if usr then
+        user = usr
+    end
+    local body = {
+        ["DDDDD"]  = (user.net == "SNET") and user.usr or user.usr.."@tel",
+        ["upass"]  = user.pwd,
+        ["R1"]     = 0,
+        ["R2"]     = "",
+        -- 0: personal computer; 1: mobile phone
+        ["R6"]     = (user.ispc == "true") and "0" or "1",
+        ["para"]   = "00",
+        ["0MKKey"] = "123456",
+        ["buttonClicked"] = "",
+        ["redirect_url"]  = "",
+        ["err_flag"]      = "",
+        ["username"]      = "",
+        ["password"]      = "",
+        ["user"]          = "",
+        ["cmd"]           = "",
+        ["Login"]         = "",
+    }
+    local cookies = {
+        ["program"]     = "XHSFDX",
+        ["vlan"]        = 0,
+        ["ip"]          = get_localip(),
+        ["md5_login2"]  = body["DDDDD"].."%7C"..body["upass"],   -- %7C == |
+    }
+    local strbody    = table2string(body, "&")
+    local strcookies = table2string(cookies, "; ")
+    local resbody    = {}
     local serip = get_serverip()
+
+    D("strbody :", strbody)
+    D("strcookies :", strcookies)
+    D("localip: ", get_localip())
+    D("serverip: ", get_serverip())
     print(("User(%s) Logining..."):format(body["DDDDD"]))
     local res, code, reshd = http.request({
         url = "http://"..serip..syscfg.path,
@@ -125,5 +143,6 @@ return {
     login   = login,
     relogin = relogin,
     logoff  = logoff,
+    set_debug = set_debug,
 }
 
