@@ -22,13 +22,18 @@
   ```shell
   $ drcom
   ```
+4. 更多使用见
+  ```shell
+  $ drcom -h
+  ```
 
 ## 路由器版本下载
 
- [Drcom4CWNU-web.ipk](https://github.com/leetking/cwnu-drcom.lua/releases/latest)
- [cwnu-drcom.lua-for-openwrt](https://github.com/leetking/cwnu-drcom.lua-for-openwrt.git)
+- [Drcom4CWNU-web.ipk](https://github.com/leetking/cwnu-drcom.lua/releases/latest)
+- [cwnu-drcom.lua-for-openwrt](https://github.com/leetking/cwnu-drcom.lua-for-openwrt.git)
  
 ## 依赖
+
 - lua >= 5.1
 - luasocket
-- md5
+- <del>md5</del>
