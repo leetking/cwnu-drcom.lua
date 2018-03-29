@@ -25,16 +25,6 @@ end
 
 local login = drcom.login
 
--- No argument
-if #arg < 1 then
-    if login() then
-        print("Login success!")
-    else
-        print("Login fail!")
-    end
-    return 0
-end
-
 local user = config.user
 
 for i = 1, #arg do
@@ -45,7 +35,7 @@ for i = 1, #arg do
     elseif "-n" == arg[i] and i+1 <= #arg then
         user.net = arg[i+1]
     elseif "-t" == arg[i] and i+1 <= #arg then
-        user.ispc = ("PC" == arg[i]) and "true" or "false"
+        user.ispc = ("PC" == arg[i+1]) and "true" or "false"
     elseif "-v" == arg[i] then
         drcom.set_debug(true)
     end
@@ -65,7 +55,7 @@ for i = 1, #arg do
 end
 
 -- Login, START
-if login() then
+if login(user) then
     print("Login success!")
 else
     print("Login fail!")
